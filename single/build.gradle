@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+		springBootVersion = '1.2.1.RELEASE'
+	}
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+
+war {
+     manifest {
+        attributes 'Main-Class': 'demo.UiApplication'
+    }
+    baseName = 'spa-angular'
+    version =  '0.0.1'
+}
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.2.1.RELEASE'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.2.1.RELEASE') {
+exclude(module: 'commons-logging')
+    }
+    testCompile(group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.3.6') {
+exclude(module: 'commons-logging')
+    }
+}
